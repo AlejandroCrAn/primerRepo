@@ -1,6 +1,6 @@
 package modeloDAO;
 
-import conexionMSQL.conexion;
+import conexionmysql.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,29 +11,35 @@ import modeloVO.libroVO;
 
 public class libroDAO {
 
-    //REVISAR CUALQUIER ERROR, ESTA PARTE DE LAS CONEXIONES
-    conexion conexion = new conexion();
+    Conexion conexion = new Conexion();
     Connection con = conexion.getConexion();
     PreparedStatement ps;
     ResultSet rs;
 
-    public ArrayList Listar() {
+    public ArrayList<libroVO> Listar() {
         ArrayList<libroVO> lista = new ArrayList<>();
         String SQL = "SELECT * FROM libro";
         try {
-            Statement ps = con.createStatement();
-            rs = ps.executeQuery(SQL);
+            ps = con.prepareStatement(SQL);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 libroVO l = new libroVO();
-                l.setClaveLibro(rs.getString(1));
-                l.setNombreLibro(rs.getString(2));
-                l.setISBN(rs.getString(3));
-                l.setNumPaginas(rs.getInt(4));
-                l.setClaveLibro(rs.getString(5));
+                l.setClaveLibro(rs.getString("claveLibro"));
+                l.setNombreLibro(rs.getString("nombreLibro"));
+                l.setISBN(rs.getString("ISBN"));
+                l.setNumPaginas(rs.getInt("numPaginas"));
+                l.setClaveEditorial(rs.getString("claveEditorial"));
                 lista.add(l);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return lista;
     }
@@ -41,53 +47,62 @@ public class libroDAO {
     public int agregar(libroVO l) {
         String SQL = "INSERT INTO libro (claveLibro,nombreLibro,ISBN,numPaginas,claveEditorial) VALUES (?,?,?,?,?)";
         try {
-            con = conexion.getConexion();
             ps = con.prepareStatement(SQL);
             ps.setString(1, l.getClaveLibro());
             ps.setString(2, l.getNombreLibro());
             ps.setString(3, l.getISBN());
             ps.setInt(4, l.getNumPaginas());
             ps.setString(5, l.getClaveEditorial());
-            ps.executeUpdate();
+            return ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return 1;
+        return 0;
     }
 
     public int actualizar(libroVO l) {
-        int respuesta = 0;
-        String SQL = "UPDATE libro SET nombreLibro=?,ISBN=?,numPaginas=?,claveEditorial=? WHERE claveEditorial=?";
+        String SQL = "UPDATE libro SET nombreLibro=?,ISBN=?,numPaginas=?,claveEditorial=? WHERE claveLibro=?";
         try {
-            con = conexion.getConexion();
             ps = con.prepareStatement(SQL);
             ps.setString(1, l.getNombreLibro());
             ps.setString(2, l.getISBN());
             ps.setInt(3, l.getNumPaginas());
             ps.setString(4, l.getClaveEditorial());
-            ps.setString(5, l.getClaveEditorial());
-            if (respuesta == 1) {
-                return 1;
-            } else {
-                return 0;
-            }
+            ps.setString(5, l.getClaveLibro());
+            return ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return respuesta;
+        return 0;
     }
 
     public void eliminar(String claveLibro) throws SQLException {
-        String SQL = "DELETE FROM libro WHERE claveLibro = '" + claveLibro + "'";
+        String SQL = "DELETE FROM libro WHERE claveLibro = ?";
         try {
-            con = conexion.getConexion();
             ps = con.prepareStatement(SQL);
             ps.setString(1, claveLibro);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; //Exepcion para que pueda se calculada por el controlador 
+            throw e; // Excepción para que pueda ser manejada por el controlador
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 }

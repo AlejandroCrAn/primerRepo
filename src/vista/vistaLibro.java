@@ -1,6 +1,7 @@
-
 package vista;
 
+import controlador.editorialesController;
+import controlador.libroController;
 
 public class vistaLibro extends javax.swing.JFrame {
 
@@ -23,7 +24,7 @@ public class vistaLibro extends javax.swing.JFrame {
         txtISBN = new javax.swing.JTextField();
         txtNumPaginas = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaLibro = new javax.swing.JTable();
         btnListarLibro = new javax.swing.JButton();
         btnEditarLibro = new javax.swing.JButton();
         btnEliminarLibro = new javax.swing.JButton();
@@ -39,7 +40,7 @@ public class vistaLibro extends javax.swing.JFrame {
         txtNumEditorial = new javax.swing.JTextField();
         txtClaveEditorialE = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaEditoriales = new javax.swing.JTable();
         btnListarEditorial = new javax.swing.JButton();
         btnAgregarEditorial = new javax.swing.JButton();
         btnEditarEditorial = new javax.swing.JButton();
@@ -56,10 +57,10 @@ public class vistaLibro extends javax.swing.JFrame {
         jLabel2.setText("NOMBRE LIBRO:");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel3.setText("ISBN LIBRO:");
+        jLabel3.setText("No. PÁGINAS:");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setText("No. PÁGINAS:");
+        jLabel4.setText("CLAVE EDITORIAL:");
 
         txtClaveLibro.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
@@ -69,19 +70,16 @@ public class vistaLibro extends javax.swing.JFrame {
 
         txtNumPaginas.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaLibro.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tablaLibro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "CLAVE LIBRO", "NOMBRE LIBRO", "ISBN LIBRO", "No. PÁGINAS", "CLAVE EDITORIAL"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaLibro);
 
         btnListarLibro.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnListarLibro.setText("LISTAR");
@@ -99,7 +97,7 @@ public class vistaLibro extends javax.swing.JFrame {
         btnActualizarLibro.setText("ACTUALIZAR");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel8.setText("CLAVE EDITORIAL:");
+        jLabel8.setText("ISBN LIBRO:");
 
         txtClaveEditorialL.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
@@ -108,47 +106,43 @@ public class vistaLibro extends javax.swing.JFrame {
         Pane_LibroLayout.setHorizontalGroup(
             Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pane_LibroLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Pane_LibroLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Pane_LibroLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel1))
-                            .addComponent(jLabel2)))
-                    .addGroup(Pane_LibroLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8)))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8))
                 .addGap(12, 12, 12)
                 .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtNombreLibro, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                     .addComponent(txtClaveLibro)
-                    .addComponent(txtClaveEditorialL))
-                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(Pane_LibroLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(Pane_LibroLayout.createSequentialGroup()
-                                .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnListarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Pane_LibroLayout.createSequentialGroup()
+                                .addComponent(txtClaveEditorialL, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnActualizarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(Pane_LibroLayout.createSequentialGroup()
                                 .addComponent(txtNumPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAgregarLibro)
-                            .addComponent(btnActualizarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pane_LibroLayout.createSequentialGroup()
-                        .addGap(351, 351, 351)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnListarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAgregarLibro)
+                                .addGap(38, 38, 38))))
+                    .addGroup(Pane_LibroLayout.createSequentialGroup()
                         .addComponent(btnEliminarLibro)
-                        .addGap(66, 66, 66)))
-                .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(66, 66, 66))))
             .addGroup(Pane_LibroLayout.createSequentialGroup()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -156,58 +150,53 @@ public class vistaLibro extends javax.swing.JFrame {
         Pane_LibroLayout.setVerticalGroup(
             Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pane_LibroLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAgregarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtClaveLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(btnListarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtClaveLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(btnListarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(txtNombreLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(txtNumPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnEditarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombreLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtClaveEditorialL, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Pane_LibroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtClaveEditorialL, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8)))
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("LIBRO", null, Pane_Libro, "");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel5.setText("NOMBRE EDITORIAL:");
+        jLabel5.setText("NUMERO EDITORIAL:");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel6.setText("No. EDITORIAL:");
+        jLabel6.setText("NOMBRE EDITORIAL:");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setText("CLAVE EDITORIAL:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEditoriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "NOMBRE EDITORIAL", "No. EDITORIAL", "CLAVE EDITORIAL"
+                "NUMERO EDITORIAL", "NOMBRE  EDITORIAL", "CLAVE EDITORIAL"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tablaEditoriales);
 
         btnListarEditorial.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnListarEditorial.setText("LISTAR");
@@ -234,76 +223,73 @@ public class vistaLibro extends javax.swing.JFrame {
         Pane_EditorialesLayout.setHorizontalGroup(
             Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(23, 23, 23)
+                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                            .addGap(41, 41, 41)
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtClaveEditorialE, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                            .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                                    .addGap(29, 29, 29)
-                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtClaveEditorialE, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                                    .addGap(68, 68, 68)
                                     .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNumEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(42, 42, 42)
-                            .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnEditarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                                .addComponent(btnListarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnAgregarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnActualizarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEliminarEditorial))))
-                .addContainerGap(115, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtNombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(Pane_EditorialesLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNumEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(131, 131, 131)
+                        .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Pane_EditorialesLayout.createSequentialGroup()
+                                .addComponent(btnEditarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAgregarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pane_EditorialesLayout.createSequentialGroup()
+                                .addComponent(btnListarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizarEditorial)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminarEditorial)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         Pane_EditorialesLayout.setVerticalGroup(
             Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Pane_EditorialesLayout.createSequentialGroup()
                 .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addContainerGap(16, Short.MAX_VALUE)
                         .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(Pane_EditorialesLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pane_EditorialesLayout.createSequentialGroup()
+                                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnListarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnActualizarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnEditarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAgregarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Pane_EditorialesLayout.createSequentialGroup()
                                 .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
+                                    .addComponent(txtNumEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
                                     .addComponent(txtNombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 13, Short.MAX_VALUE))
-                            .addComponent(btnListarEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)))
                         .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnActualizarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtClaveEditorialE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28))
                     .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtNumEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Pane_EditorialesLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEditarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(Pane_EditorialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtClaveEditorialE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnEliminarEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(31, 31, 31))
         );
 
         jTabbedPane1.addTab("EDITORIALES", Pane_Editoriales);
@@ -331,7 +317,6 @@ public class vistaLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActualizarEditorialActionPerformed
 
-   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -359,7 +344,11 @@ public class vistaLibro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vistaLibro().setVisible(true);
+                vistaLibro vista = new vistaLibro();
+                editorialesController controller = new editorialesController(vista); // Proporciona la instancia de la vista
+                libroController control = new libroController(vista);
+                vista.setVisible(true);
+                vista.setLocationRelativeTo(null);
             }
         });
     }
@@ -367,16 +356,16 @@ public class vistaLibro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Pane_Editoriales;
     private javax.swing.JPanel Pane_Libro;
-    private javax.swing.JButton btnActualizarEditorial;
-    private javax.swing.JButton btnActualizarLibro;
-    private javax.swing.JButton btnAgregarEditorial;
-    private javax.swing.JButton btnAgregarLibro;
-    private javax.swing.JButton btnEditarEditorial;
-    private javax.swing.JButton btnEditarLibro;
-    private javax.swing.JButton btnEliminarEditorial;
-    private javax.swing.JButton btnEliminarLibro;
-    private javax.swing.JButton btnListarEditorial;
-    private javax.swing.JButton btnListarLibro;
+    public javax.swing.JButton btnActualizarEditorial;
+    public javax.swing.JButton btnActualizarLibro;
+    public javax.swing.JButton btnAgregarEditorial;
+    public javax.swing.JButton btnAgregarLibro;
+    public javax.swing.JButton btnEditarEditorial;
+    public javax.swing.JButton btnEditarLibro;
+    public javax.swing.JButton btnEliminarEditorial;
+    public javax.swing.JButton btnEliminarLibro;
+    public javax.swing.JButton btnListarEditorial;
+    public javax.swing.JButton btnListarLibro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -388,15 +377,15 @@ public class vistaLibro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField txtClaveEditorialE;
-    private javax.swing.JTextField txtClaveEditorialL;
-    private javax.swing.JTextField txtClaveLibro;
-    private javax.swing.JTextField txtISBN;
-    private javax.swing.JTextField txtNombreEditorial;
-    private javax.swing.JTextField txtNombreLibro;
-    private javax.swing.JTextField txtNumEditorial;
-    private javax.swing.JTextField txtNumPaginas;
+    public javax.swing.JTable tablaEditoriales;
+    public javax.swing.JTable tablaLibro;
+    public javax.swing.JTextField txtClaveEditorialE;
+    public javax.swing.JTextField txtClaveEditorialL;
+    public javax.swing.JTextField txtClaveLibro;
+    public javax.swing.JTextField txtISBN;
+    public javax.swing.JTextField txtNombreEditorial;
+    public javax.swing.JTextField txtNombreLibro;
+    public javax.swing.JTextField txtNumEditorial;
+    public javax.swing.JTextField txtNumPaginas;
     // End of variables declaration//GEN-END:variables
 }
